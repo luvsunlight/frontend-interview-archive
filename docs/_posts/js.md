@@ -451,7 +451,7 @@ Object.getPrototypeOf(obj) === Foo.prototype // true
 * 任何对象的原型链顶端都是Object.prototype
 * 任何函数都是Function的实例对象
 
-![](https://mmbiz.qpic.cn/mmbiz_png/udZl15qqib0Oa6olLVcaSWibt5yVkAf2YKDHu87BBDy6SahBX90FIqN5NuNk349Xl1SzsohBM5tGrNiauIl1icXF6A/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
+![](http://images2015.cnblogs.com/blog/857465/201703/857465-20170305142000048-2065062538.gif)
 
 在更复杂的原型链系统中，我们新增如下规律
 
@@ -463,8 +463,40 @@ Object.getPrototypeOf(obj) === Foo.prototype // true
 * `Function.__proto__ === Function.prototype`.因为Function是函数对象，所以指向Funciton.prototype
 * `Foo.__proto__ === Function.prototype`.因为它是函数对象，函数对象的[[prototype]]就是指向Function.prototype
 
+当对象没有被访问的属性时，我们就会从其__proto__对象中寻找，我们使用hasOwnProperty方法来判断该对象自己是否具有该属性
+
 </details>
 
+## 11. JS的数据类型分类和判断
+
+<details>
+<summary>查看解析</summary>
+JS一共7中基本类型
+
+* Undefined
+* Null
+* Boolean
+* Number
+* String
+* Object
+* Symbol
+
+判断类型有两个方法，typeof和instanceof
+
+typeof => undefined, boolean, number, string, object, symbol, null的typeof的结果是object，这是typeof的机制导致的，null的地址前几位是0，则判断为object
+
+instanceof则为判断对象/直接量和构造函数的关系
+
+
+| 对象/字面量          | 构造函数    | 返回结果 |
+|-----------------|---------|------|
+| new Numebr(1)   | Number  | true |
+| new String()    | String  | true |
+| new Boolean()   | Boolean | true |
+| var bar = Foo() | Foo     | true |
+| [1, 2]          | Array   | true |
+
+</details>
 
 
 
