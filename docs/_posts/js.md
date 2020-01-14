@@ -501,5 +501,52 @@ instanceof则为判断对象/直接量和构造函数的关系
 
 </details>
 
+## 12. 回流和重绘
+
+<details>
+<summary>查看解析</summary>
+回流也叫重排，即我们对DOM的修改引发了DOM几何尺寸的变化，浏览器需要重新计算元素的几何属性，这个过程叫重排
+
+重绘即样式的修改，整体布局不发生变化
+
+常见的会导致回流的元素
+
+* 常见的几何属性有 width、height、padding、margin、left、top、border 等等。
+* 最容易被忽略的操作：获取一些需要通过即时计算得到的属性,当你要用到像这样的属性：offsetTop、offsetLeft、 offsetWidth、offsetHeight、scrollTop、scrollLeft、scrollWidth、scrollHeight、clientTop、clientLeft、clientWidth、clientHeight 时，浏览器为了获取这些值，也会进行回流。
+* 当我们调用了 getComputedStyle 方法，或者 IE 里的 currentStyle 时，也会触发回流。原理是一样的，都为求一个“即时性”和“准确性”。
+
+避免方式
+
+* 避免逐条改变样式，使用类名去合并样式（ant-design里用类名去区分样式，原来是为了避免重排）
+* 减少DOM操作，用fragment操作集合起来
+
+部分浏览器缓存了一个 flush 队列，把我们触发的回流与重绘任务都塞进去，待到队列里的任务多起来、或者达到了一定的时间间隔，或者“不得已”的时候，再将这些任务一口气出队。但是当我们访问一些即时属性时，浏览器会为了获得此时此刻的、最准确的属性值，而提前将 flush 队列的任务出队。
+
+</details>
+
+## 13. 从输入URL到浏览器接收的过程发生了什么事情
+
+<details>
+<summary>查看解析</summary>
+[Refer](http://fex.baidu.com/blog/2014/05/what-happen/)
+
+简略版
+
+* 输入网址
+* DND解析，tcp请求先经过DNS服务器，解析成响应的IP地址后再和对应的服务器通信
+* 与服务器建立TCP连接
+* 浏览器向web服务器发送http请求
+* 服务端响应请求
+* 浏览器接收数据，以html为例，先HTML解析成DOM树
+* 建立CSSOM
+* 在位图里构建网页的样式
+* 将位图中的数据渲染至网页中
+
+复杂版
+
+* 从输入URL到浏览器接收
+    * 手指触摸屏幕，如果是基于电容的屏幕，则会导致该区域的电压变化，触摸屏芯片将该信号传递至CPU中
+
+</details>
 
 
